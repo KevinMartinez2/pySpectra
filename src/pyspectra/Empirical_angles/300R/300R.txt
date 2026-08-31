@@ -1,0 +1,2 @@
+Angle	lambda_c
+7:00	6510.69

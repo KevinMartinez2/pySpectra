@@ -1,0 +1,2 @@
+Angle	lambda_c
+3:35	5395.32
