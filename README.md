@@ -5,4 +5,4 @@ This repository contains the source code for the pySpectra package, designed for
 
 You can install directly from GitHub using:
 ```bash
-pip install git+https://github.com/USERNAME/easyspec.git
+pip install https://github.com/KevinMartinez2/pySpectra.git
