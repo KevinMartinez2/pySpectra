@@ -1,0 +1,19 @@
+[build-system]
+requires = ["setuptools>=61"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "easyspec"
+version = "0.1.0"
+description = "Python package designed for the reduction and analysis of astrophysical spectral data"
+readme = "README.md"
+requires-python = ">=3.10"
+
+dependencies = [
+    "numpy",
+    "astropy",
+    "scipy",
+    "pathlib",
+    "datetime",
+    "matplotlib",
+]
