@@ -4,7 +4,7 @@ from pathlib import Path
 
 import numpy as np
 
-from basic_calibration.combine import combine
+from pyspectra.basic_calibration.combine import combine
 
 def bias(bias_files, files, method = 'median', 
          view_stats = True, subtract = True,
