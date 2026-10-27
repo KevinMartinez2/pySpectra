@@ -6,7 +6,7 @@ from astropy.io import fits
 
 import matplotlib.pyplot as plt
 
-from basic_calibration.combine import combine
+from pyspectra.basic_calibration.combine import combine
 
 plt.rcParams.update({
     "font.size": 12,
