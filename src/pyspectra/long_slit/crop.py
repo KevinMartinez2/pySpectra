@@ -21,7 +21,7 @@ plt.rcParams.update({
 
 plt.rcParams["figure.dpi"] = 200
 
-def crop(path_files, ref_file = '', ref_file_ext = 0, view_crop = False, view_FITS_crop = False, apply_crop = False, new_files = None):
+def crop(path_files, ref_file = '', ref_file_ext = 0, xlims = None, ylims = None, view_crop = False, view_FITS_crop = False, apply_crop = False, new_files = None):
     """
     Performs a crop for a set of FITS files, based on the overscan region of a flat-field file.
 
@@ -34,6 +34,8 @@ def crop(path_files, ref_file = '', ref_file_ext = 0, view_crop = False, view_FI
     ref_file_ext : int or str, optional
         Extension containing the reference data.
         Default is 0.
+    xlims, ylims : list of floats,
+        User defined limits to perform the crop. 
     view_crop: bool, optional
         If True, plots the central file and column of the reference file and
         the range where the crop will be make. Otherwise, dont plot anything.
@@ -99,8 +101,14 @@ def crop(path_files, ref_file = '', ref_file_ext = 0, view_crop = False, view_FI
             up_idx = central_spat_pix+i # Upper limit
             break
 
-    spat_axis_lims = [low_idx, up_idx]
-
+    # Define the spatial axis limits
+    if (xlims is None) and (ylims is None):
+        spat_axis_lims = [low_idx, up_idx]
+    elif (disp_axis == 2) and (xlims is not None):
+        spat_axis_lims = [xlims[0], xlims[1]]
+    elif (disp_axis == 1) and (ylims is not None):
+        spat_axis_lims = [ylims[0], ylims[1]]
+        
     # Finding limits for the dispersion axis
     low_data = disp_data_G1d[n_disp_pixs//10:0:-1]
     grad_l = np.gradient(low_data)
@@ -122,7 +130,15 @@ def crop(path_files, ref_file = '', ref_file_ext = 0, view_crop = False, view_FI
     elif len(idx_u_list[0]) == 0:
         u_idx = n_disp_pixs
 
-    disp_axis_lims = [l_idx, u_idx]
+    # Define the dispersion axis limits
+    if (xlims is None) and (ylims is None):
+        disp_axis_lims = [l_idx, u_idx]
+    elif (disp_axis == 2) and (ylims is not None):
+        disp_axis_lims = [ylims[0], ylims[1]]
+    elif (disp_axis == 1) and (xlims is not None):
+        disp_axis_lims = [xlims[0], xlims[1]]
+    
+    
 
     # Plotting the x and y limits
     if view_crop:
@@ -225,7 +241,4 @@ def crop(path_files, ref_file = '', ref_file_ext = 0, view_crop = False, view_FI
                     hdu.writeto(new_files[i], overwrite=True)
                 else:
                     hdu.writeto(str(f), overwrite=True)
-
-
-
-# def custom_crop(path_files, view_crop = False, view_FITS_crop = False, apply_crop = False, new_files = None):
+                    
